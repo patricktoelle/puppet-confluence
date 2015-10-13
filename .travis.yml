@@ -1,29 +1,33 @@
 ---
-language: ruby
-bundler_args: --without development system_tests
-before_install: rm Gemfile.lock || true
-sudo: false
-rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-env:
-  - PUPPET_GEM_VERSION="~> 3.3.0"
-  - PUPPET_GEM_VERSION="~> 3.4.0"
-  - PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES=yes
-  - PUPPET_GEM_VERSION="~> 3.6.0" STRICT_VARIABLES=yes
-  - PUPPET_GEM_VERSION="~> 3.7.0" STRICT_VARIABLES=yes
-  - PUPPET_GEM_VERSION="~> 3.7.0" STRICT_VARIABLES=yes FUTURE_PARSER=yes
-  - PUPPET_GEM_VERSION="~> 3.7.0" FUTURE_PARSER=yes
 notifications:
-  email:
-    - merritt@krakowitzer.com
-script: bundle exec rake test
+  email: false
+sudo: false
+language: ruby
+cache: bundler
+bundler_args: --without system_tests
+before_install: rm Gemfile.lock || true
+script:
+  - 'bundle exec rake $CHECK'
+matrix:
+  fast_finish: true
+  include:
+  - rvm: 1.9.3
+    env: PUPPET_VERSION="~> 3.4" CHECK=test
+  - rvm: 1.9.3
+    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.1.6
+    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.1.6
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.2.3
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.2.3
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=rubocop
 deploy:
   provider: puppetforge
   user: puppet
   password:
-    secure: "bca3Ebj/IE9a1X/BpLPVpMYw/zx9VkFRp1WjQZ437jYnpjyl2M/bC1cyW/A7TnzPX7WOpemT5+CVlVF/WE6f0Hrn6EqSzNwrVF8HOkGD8LqVLopXkaEn1zjcrhF4uMaleDpnNxQUx9nMAnqksiw2xphF1yxABqMt3l42SV7ajVw="
+    secure: ""
   on:
     tags: true
     # all_branches is required to use tags

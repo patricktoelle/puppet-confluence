@@ -1,9 +1,6 @@
-*kate-swp
-pkg/
-*.swp
-*.settings
-*.project
-spec/fixtures/modules
-Gemfile.lock
+.*.sw?
+pkg
+spec/fixtures
+.rspec_system
 .vagrant
-log
+Gemfile.lock
