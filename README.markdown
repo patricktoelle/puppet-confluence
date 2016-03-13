@@ -1,6 +1,6 @@
 #puppet-confluence
 [![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/confluence.svg)](https://forge.puppetlabs.com/puppet/confluence)
-[![Build Status](https://travis-ci.org/puppet-community/puppet-confluence.svg?branch=master)](https://travis-ci.org/puppet-community/puppet-confluence)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-confluence.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-confluence)
 
 #### Table of Contents
 
@@ -97,7 +97,7 @@ confluence::tomcat_port:    '8090'
 confluence::jvm_xms:        '4G'
 confluence::jvm_xmx:        '8G'
 confluence::jvm_permgen:    '512m'
-confluence::downloadURL:    'http://webserver.example.co.za/pub/software/development-tools/atlassian'
+confluence::download_url:    'http://webserver.example.co.za/pub/software/development-tools/atlassian'
 confluence::tomcat_proxy:
   scheme:    'https'
   proxyName: 'webvip.example.co.za'
@@ -199,7 +199,7 @@ Some more crowd.properties for SSO, see atlassian documentation for details
 
 #####`manage_server_xml`
 Should we use augeas to manage server.xml or a template file. Defaults to 'augues'. Operating systems that do not have a support version of Augeas such as Ubuntu 12.04 can use 'template'.
-#####`downloadURL`
+#####`download_url`
 Default: 'http://www.atlassian.com/software/confluence/downloads/binary/'
 #####`manage_service`
 Should puppet manage this service? Default: true
