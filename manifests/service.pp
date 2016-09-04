@@ -6,6 +6,7 @@ class confluence::service(
   $service_file_location = $confluence::params::service_file_location,
   $service_file_template = $confluence::params::service_file_template,
   $service_lockfile      = $confluence::params::service_lockfile,
+  $service_provider      = $confluence::params::service_provider,
 )  {
 
   file { $service_file_location:
@@ -15,9 +16,10 @@ class confluence::service(
 
   if $confluence::manage_service {
     service { 'confluence':
-      ensure  => 'running',
-      enable  => true,
-      require => [ Class['confluence::config'], File[$service_file_location], ],
+      ensure   => 'running',
+      enable   => true,
+      require  => [ Class['confluence::config'], File[$service_file_location], ],
+      provider => $service_provider,
     }
   }
 }
